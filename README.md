@@ -44,6 +44,11 @@ docker-compose up --build
 
 A API ficará disponível em `http://localhost:3000`
 
+Para popular o banco com dados iniciais:
+```bash
+docker-compose exec app npm run seed
+```
+
 A documentação Swagger ficará em `http://localhost:3000/api`
 
 ### Sem Docker (desenvolvimento local)
@@ -72,6 +77,9 @@ npx prisma generate
 
 # Iniciar o servidor
 npm run start:dev
+
+# Popular o banco (opcional)
+npm run seed
 ```
 
 ### Rodar os Testes
@@ -234,6 +242,53 @@ A relação entre `Users` e `Transactions` segue a cardinalidade **(1,1) para (0
 
 ---
 
+### Sprint 4 — População de Dados (Seed)
+
+**User Story:** Como desenvolvedor, eu quero ter uma maneira fácil de popular o banco de dados com registros fictícios para testar as funcionalidades e visualizar o resumo financeiro com dados reais.
+
+**O que foi feito:**
+- Criação de um script de seed básico (`prisma/seed.ts`)
+- Configuração do comando `npm run seed` para execução simplificada
+- Inclusão de usuários de teste e transações variadas (entradas e saídas)
+
+---
+
+### Sprint 5 — Segurança e Refatoração de Variáveis
+
+**User Story:** Como administrador do sistema, eu quero que nenhuma credencial sensível esteja exposta no código-fonte ou em arquivos de configuração do Docker para garantir a segurança da infraestrutura.
+
+**O que foi feito:**
+- Remoção de todos os segredos (JWT_SECRET, senhas de banco) do `docker-compose.yml`
+- Implementação de interpolação de variáveis no Docker Compose (`${VAR}`)
+- Padronização do arquivo `.env` para centralizar todas as configurações sensíveis
+- Atualização do `.env.example` para refletir a nova estrutura de segurança
+
+---
+
+## 📄 Como usar o Swagger (Documentação Interativa)
+
+O Swagger permite que você teste todos os endpoints da API diretamente pelo navegador, sem precisar de ferramentas externas como Postman ou Insomnia.
+
+### 1. Acessar a Documentação
+Com a aplicação rodando, acesse: `http://localhost:3000/api`
+
+### 2. Autenticação (JWT)
+Algumas rotas (como as de transações) exigem autenticação. Para testá-las:
+1. Vá até o endpoint **POST `/auth/login`**.
+2. Clique em **"Try it out"**, insira as credenciais de um usuário (ex: as do seed) e clique em **"Execute"**.
+3. Copie o valor do `access_token` retornado no JSON.
+4. No topo da página do Swagger, clique no botão **"Authorize"** (ícone de cadeado).
+5. Cole o token no campo **Value** e clique em **Authorize**.
+6. Agora você pode testar qualquer rota protegida!
+
+### 3. Testando Endpoints
+- Clique em um endpoint para expandi-lo.
+- Clique em **"Try it out"**.
+- Preencha os parâmetros ou o corpo da requisição (se houver).
+- Clique em **"Execute"** para ver a resposta em tempo real.
+
+---
+
 ## 🔗 Endpoints da API
 
 ### App
@@ -345,4 +400,17 @@ model Transaction {
   @@map("Transactions")
 }
 ```
+
+### Erro: P2021 ou Authentication Failed ao rodar o Seed
+
+**Causa:** O script de seed tenta inserir dados mas falha se as tabelas ainda não foram criadas no banco ou se a senha no `.env` está incorreta.
+
+**Solução:** 
+1. Certifique-se de que a senha no `.env` coincide com a sua instalação local do PostgreSQL.
+2. Sincronize o schema com o banco antes de rodar o seed:
+```bash
+npx prisma db push
+npm run seed
+```
+
 
