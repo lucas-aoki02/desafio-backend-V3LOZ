@@ -2,6 +2,8 @@
 
 Sistema simples de controle financeiro desenvolvido com NestJS e TypeScript.
 
+> 📄 **Meu currículo e carta de apresentação estão disponíveis na pasta [`docs/`](docs/).**
+
 ## 📋 Sobre o Projeto
 
 API REST que permite cadastro e autenticação de usuários, gerenciamento de transações financeiras (entradas e saídas), e consulta de resumo financeiro.

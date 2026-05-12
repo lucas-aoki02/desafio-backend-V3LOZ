@@ -1,0 +1,44 @@
+# Dependências e Versões do Projeto
+
+## Runtime e Ferramentas
+
+Node.js              v24.14.1
+npm                  v11.11.0
+TypeScript           v5.9.3
+Docker               v29.1.3
+PostgreSQL           15 (imagem Docker)
+
+## Dependências de Produção
+
+@nestjs/common       v10.4.22
+@nestjs/core         v10.4.22
+@nestjs/config       v3.3.0
+@nestjs/jwt          v10.2.0
+@nestjs/passport     v10.0.3
+@nestjs/platform-express v10.4.22
+@nestjs/swagger      v7.4.2
+@prisma/client       v5.22.0
+bcrypt               v5.1.1
+class-transformer    v0.5.1
+class-validator      v0.14.4
+passport             v0.6.0
+passport-jwt         v4.0.1
+reflect-metadata     v0.1.14
+rxjs                 v7.8.2
+
+## Dependências de Desenvolvimento
+
+@nestjs/cli          v10.4.9
+@nestjs/schematics   v10.2.3
+@nestjs/testing      v10.4.22
+@types/bcrypt        v5.0.2
+@types/express       v4.17.25
+@types/jest          v29.5.14
+@types/node          v20.19.41
+@types/passport-jwt  v3.0.13
+jest                 v29.7.0
+prisma               v5.22.0
+source-map-support   v0.5.21
+ts-jest              v29.4.9
+ts-node              v10.9.2
+typescript           v5.9.3
